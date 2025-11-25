@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, render_template_string, request
 import requests
 from urllib.parse import urlencode
@@ -662,6 +661,29 @@ HTML_TEMPLATE = """
             transition: all 0.3s ease;
         }
 
+        .loading-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+            gap: 2rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
@@ -788,6 +810,7 @@ HTML_TEMPLATE = """
     </header>
 
     <div class="container">
+        {% if items %}
         <div class="stats-bar">
             <div class="stat-card">
                 <div class="stat-value">{{ items|length }}</div>
